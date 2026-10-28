@@ -4,7 +4,7 @@
 
 ```bash
 poetry config virtualenvs.in-project true --local
-poetry install
+poetry install --all-extras   # inclui o extra dashboard, exigido pelos testes
 ```
 
 Dependências são gerenciadas só pelo Poetry (`poetry add`, `poetry add --group dev`). Nunca use `pip`.

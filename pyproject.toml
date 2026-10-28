@@ -11,12 +11,15 @@ dependencies = [
     "httpx (>=0.28.1,<0.29.0)",
     "polars (>=2.1.0,<3.0.0)",
     "duckdb (>=2.0.0,<3.0.0)",
-    "pydantic-settings (>=2.16.2,<3.0.0)"
+    "pydantic-settings (>=2.16.2,<3.0.0)",
+    "streamlit (>=1.66.1,<2.0.0)"
 ]
 
 [project.scripts]
 f1 = "f1.main:main"
 
+[project.optional-dependencies]
+dashboard = ["streamlit (>=1.66.1,<2.0.0)"]
 [tool.poetry]
 packages = [{include = "f1", from = "src"}]
 requires-poetry = ">=2.0"

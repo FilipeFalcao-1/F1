@@ -1,11 +1,14 @@
 """Entry point da CLI ``f1`` (composition root)."""
 
 import argparse
+import importlib.util
 import logging
+import subprocess
 import sys
 from collections.abc import Iterator
 from contextlib import contextmanager
 from datetime import UTC, datetime
+from pathlib import Path
 
 import duckdb
 import httpx
@@ -77,6 +80,8 @@ def build_parser() -> argparse.ArgumentParser:
         dest="target", required=True
     )
     marts.add_parser("build", help="recria as views silver_* e os marts gold_*")
+
+    commands.add_parser("dashboard", help="abre o dashboard Streamlit (extra 'dashboard')")
 
     run = commands.add_parser("run", help="ingest year + refine + marts build")
     run.add_argument("--year", type=int, help="padrão: ano corrente")
@@ -152,6 +157,18 @@ def execute(args: argparse.Namespace, settings: Settings, run_id: str) -> None:
                 ingest.ingest_year(utc_now().year, args.with_telemetry)
 
 
+def launch_dashboard() -> int:
+    """Abre o dashboard Streamlit e devolve o código de saída do servidor.
+
+    Raises:
+        ConfigurationError: Se o extra ``dashboard`` não estiver instalado.
+    """
+    if importlib.util.find_spec("streamlit") is None:
+        raise ConfigurationError("Instale o dashboard com: poetry install --extras dashboard")
+    app = Path(__file__).parent / "dashboard" / "app.py"
+    return subprocess.call([sys.executable, "-m", "streamlit", "run", str(app)])
+
+
 def main(argv: list[str] | None = None) -> int:
     """Executa a CLI e devolve o código de saída (0 = sucesso)."""
     args = build_parser().parse_args(argv)
@@ -165,6 +182,8 @@ def main(argv: list[str] | None = None) -> int:
     run_id = configure_logging(settings.log_level, command)
     logger.info("Execução iniciada args=%s", vars(args))
     try:
+        if args.command == "dashboard":
+            return launch_dashboard()
         execute(args, settings, run_id)
     except F1Error:
         logger.exception("Execução falhou")

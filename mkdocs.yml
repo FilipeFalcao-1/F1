@@ -30,6 +30,7 @@ nav:
   - Primeiros passos: getting-started.md
   - Arquitetura: architecture.md
   - Endpoints: endpoints.md
+  - Dashboard: dashboard.md
   - Operação e troubleshooting: troubleshooting.md
   - Desenvolvimento: development.md
   - Decisões (ADR):

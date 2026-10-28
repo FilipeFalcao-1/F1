@@ -10,6 +10,8 @@ SELECT
     l.meeting_key,
     l.session_key,
     l.driver_number,
+    d.name_acronym,
+    d.team_name,
     l.lap_number,
     l.date_start,
     l.lap_duration,
@@ -32,6 +34,8 @@ LEFT JOIN silver_stints AS s
         l.session_key = s.session_key
         AND l.driver_number = s.driver_number
         AND l.lap_number BETWEEN s.lap_start AND s.lap_end
+LEFT JOIN silver_drivers AS d
+    ON l.session_key = d.session_key AND l.driver_number = d.driver_number
 LEFT JOIN pit_laps AS p
     ON
         l.session_key = p.session_key

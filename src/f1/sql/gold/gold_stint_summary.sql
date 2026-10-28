@@ -5,6 +5,8 @@ SELECT
     meeting_key,
     session_key,
     driver_number,
+    name_acronym,
+    team_name,
     stint_number,
     compound,
     min(lap_number) AS first_lap,
@@ -17,4 +19,5 @@ SELECT
     regr_slope(lap_duration, tyre_age) FILTER (WHERE is_clean_lap) AS degradation_s_per_lap
 FROM gold_lap_pace
 WHERE stint_number IS NOT NULL
-GROUP BY year, meeting_key, session_key, driver_number, stint_number, compound
+GROUP BY
+    year, meeting_key, session_key, driver_number, name_acronym, team_name, stint_number, compound

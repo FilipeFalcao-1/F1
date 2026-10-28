@@ -41,7 +41,7 @@ jobs:
         run: poetry check --lock
 
       - name: Instalar dependências
-        run: poetry install --no-interaction
+        run: poetry install --no-interaction --all-extras
 
       - name: Ruff lint
         run: poetry run ruff check . --output-format=github

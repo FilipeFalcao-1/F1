@@ -88,3 +88,18 @@ def test_falha_de_extracao_retorna_1(fake_http: object) -> None:
     fake_http.failing["laps"] = 400  # type: ignore[attr-defined]
 
     assert main(["ingest", "session", "--session-key", "9165"]) == 1
+
+
+def test_dashboard_abre_streamlit(monkeypatch: pytest.MonkeyPatch) -> None:
+    calls: list[list[str]] = []
+    monkeypatch.setattr("f1.main.subprocess.call", lambda argv: calls.append(argv) or 0)
+
+    assert main(["dashboard"]) == 0
+    assert calls[0][1:4] == ["-m", "streamlit", "run"]
+    assert calls[0][4].endswith("dashboard/app.py")
+
+
+def test_dashboard_sem_extra_instalado_retorna_1(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr("f1.main.importlib.util.find_spec", lambda name: None)
+
+    assert main(["dashboard"]) == 1

@@ -26,7 +26,14 @@ poetry run f1 marts build                                        # silver → go
 poetry run f1 run --year 2025                                    # ingest + refine + marts, incremental
 ```
 
-Depois, consulte com DuckDB:
+Para explorar no dashboard (Streamlit):
+
+```bash
+poetry install --extras dashboard
+poetry run f1 dashboard        # http://localhost:8501
+```
+
+Ou consulte com DuckDB:
 
 ```sql
 SELECT * FROM gold_race_results ORDER BY date_start, position;

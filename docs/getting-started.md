@@ -54,6 +54,7 @@ duckdb data/f1.duckdb "SELECT endpoint, status, rows FROM meta.ingestion_runs OR
 | `f1 refine (--session-key N \| --year Y)` | Bronze → silver e quarentena |
 | `f1 marts build` | Recria as views `silver_*` e os marts `gold_*` |
 | `f1 run [--year Y] [--with-telemetry]` | `ingest year` + `refine --year` + `marts build` (padrão: ano corrente) |
+| `f1 dashboard` | Abre o dashboard Streamlit (exige `poetry install --extras dashboard`) |
 
 Sessões canceladas (`is_cancelled`) ou ainda não encerradas (`date_end` no futuro) são puladas e registradas no log. Qualquer falha encerra com código de saída diferente de zero.
 
@@ -61,7 +62,7 @@ Sessões canceladas (`is_cancelled`) ou ainda não encerradas (`date_end` no fut
 
 | Tabela | Grão | Conteúdo |
 |---|---|---|
-| `gold_lap_pace` | volta × piloto | Tempos, composto, idade do pneu, flags de pit e `is_clean_lap` |
+| `gold_lap_pace` | volta × piloto | Piloto, equipe, tempos, composto, idade do pneu, flags de pit e `is_clean_lap` |
 | `gold_stint_summary` | stint × piloto | Voltas, ritmo médio/mediano/melhor e degradação (s/volta) |
 | `gold_pit_stops` | parada | `lane_duration` e `stop_duration` por corrida, numeradas por piloto |
 | `gold_race_results` | piloto × corrida | Resultado, grid, posições ganhas, pontos e gaps (inclui sprints) |

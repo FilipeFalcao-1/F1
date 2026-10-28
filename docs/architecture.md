@@ -30,6 +30,8 @@ data/f1.duckdb ── views silver_*, tabelas gold_* e meta.ingestion_runs
 | `repositories/catalog.py` | `Catalog`: manifesto, views `silver_*` e materialização dos marts |
 | `pipelines/` | `IngestPipeline`, `RefinePipeline` e `MartsPipeline` |
 | `sql/gold/*.sql` | Marts versionados como SQL |
+| `repositories/marts.py` | `MartsReader`: consultas parametrizadas aos marts para o dashboard |
+| `dashboard/` | App Streamlit (`app.py`) e gráficos Altair puros (`charts.py`); extra opcional `dashboard` |
 
 ## Bronze
 

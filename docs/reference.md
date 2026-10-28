@@ -32,6 +32,12 @@
 
 ::: f1.repositories.catalog
 
+## Dashboard
+
+::: f1.repositories.marts
+
+::: f1.dashboard.charts
+
 ## Pipelines
 
 ::: f1.pipelines.ingest
