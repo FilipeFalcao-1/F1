@@ -16,7 +16,7 @@ poetry check --lock
 poetry run ruff check . && poetry run ruff format --check .
 poetry run mypy
 poetry run pytest tests/ --cov=f1 --cov-report=term-missing --cov-fail-under=50
-poetry run mkdocs build --strict
+poetry run task docs-build      # mkdocs build --strict
 ```
 
 O CI (`.github/workflows/ci.yml`) roda essa sequência e também o `pip-audit`.
@@ -56,3 +56,13 @@ A API falsa (`FakeOpenF1`, em `tests/conftest.py`) filtra os registros de `tests
 - Conventional Commits (`feat(extractors): …`, `fix: …`) e PRs pequenos com o template de `.github/pull_request_template.md`.
 - Logs com `%s` (lazy) e contexto (`endpoint`, `partition`, `rows`, `duration_s`). O `run_id` é injetado em todas as linhas.
 - Transformers não fazem I/O, e o `main.py` não tem regra de negócio.
+
+## Documentação
+
+A documentação usa MkDocs Material, com a referência da API gerada pelo `mkdocstrings` a partir das docstrings (Google Style). Os atalhos ficam em `[tool.taskipy.tasks]` no `pyproject.toml`:
+
+```bash
+poetry run task docs         # serve com hot reload em http://127.0.0.1:8000
+poetry run task docs-build   # mkdocs build --strict (o mesmo que o CI roda)
+poetry run task --list       # lista os atalhos disponíveis
+```

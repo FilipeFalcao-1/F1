@@ -42,7 +42,7 @@ SELECT * FROM gold_race_results ORDER BY date_start, position;
 ## Documentação
 
 ```bash
-poetry run mkdocs serve   # http://127.0.0.1:8000
+poetry run task docs   # http://127.0.0.1:8000
 ```
 
 Comece por [docs/getting-started.md](docs/getting-started.md). A arquitetura está em [docs/architecture.md](docs/architecture.md) e o desenvolvimento em [docs/development.md](docs/development.md).
