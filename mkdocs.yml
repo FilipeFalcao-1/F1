@@ -1,0 +1,63 @@
+site_name: f1
+site_description: Pipeline de dados da OpenF1 API (bronze, silver e gold)
+repo_url: https://github.com/FilipeFalcao-1/F1
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: pt-BR
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Modo escuro
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Modo claro
+
+nav:
+  - Início: index.md
+  - Primeiros passos: getting-started.md
+  - Arquitetura: architecture.md
+  - Endpoints: endpoints.md
+  - Operação e troubleshooting: troubleshooting.md
+  - Desenvolvimento: development.md
+  - Decisões (ADR):
+      - adr/0001-lake-no-github-actions.md
+  - Referência da API: reference.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: google
+            show_source: false
+            show_root_heading: true
+            members_order: source
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true

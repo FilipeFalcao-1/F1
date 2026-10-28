@@ -1,0 +1,68 @@
+# Template de mkdocs.yml — MkDocs + Material + mkdocstrings
+# Placeholders: site_name, repo_url, nome_projeto.
+# Dependências: poetry add --group dev mkdocs-material "mkdocstrings[python]"
+# Todas as páginas listadas em `nav` devem existir (build --strict falha caso contrário).
+
+site_name: nome_projeto
+site_description: Documentação do projeto nome_projeto
+repo_url: https://github.com/ORGANIZACAO/nome_projeto
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: pt-BR
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Modo escuro
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Modo claro
+
+nav:
+  - Início: index.md
+  - Primeiros passos: getting-started.md
+  - Arquitetura: architecture.md
+  - Desenvolvimento: development.md
+  - Referência da API: reference.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: google
+            show_source: false
+            show_root_heading: true
+            members_order: source
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+# docs/reference.md mínimo:
+#   # Referência da API
+#   ::: nome_projeto

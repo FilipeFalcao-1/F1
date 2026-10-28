@@ -1,0 +1,83 @@
+name: Ingestão agendada
+
+on:
+  schedule:
+    # Diário às 03:00 UTC: depois da atualização de meetings/sessions da OpenF1 (00:00 UTC)
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+    inputs:
+      year:
+        description: "Temporada (vazio = ano corrente)"
+        required: false
+      with_telemetry:
+        description: "Incluir car_data e location"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ingest
+  cancel-in-progress: false
+
+env:
+  PYTHON_VERSION: "3.14"
+  POETRY_VERSION: "2.5.1"
+  POETRY_VIRTUALENVS_IN_PROJECT: "true"
+  F1_DATA_DIR: data
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Instalar Poetry
+        run: pipx install "poetry==${POETRY_VERSION}"
+
+      - name: Configurar Python
+        id: setup-python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: poetry
+
+      - name: Selecionar interpretador
+        run: poetry env use "${{ steps.setup-python.outputs.python-path }}"
+
+      - name: Instalar dependências de produção
+        run: poetry install --only main --no-interaction
+
+      # O runner não tem disco persistente. O cache traz o lake da última execução
+      # (melhor esforço: o GitHub o descarta após 7 dias sem uso), o que mantém o
+      # manifesto e torna a ingestão incremental. Ver docs/adr/0001-lake-no-github-actions.md.
+      - name: Restaurar lake
+        uses: actions/cache/restore@v4
+        with:
+          path: data
+          key: f1-lake-${{ github.run_id }}
+          restore-keys: f1-lake-
+
+      - name: Ingerir, refinar e construir marts
+        env:
+          YEAR: ${{ inputs.year }}
+          WITH_TELEMETRY: ${{ inputs.with_telemetry && '--with-telemetry' || '' }}
+        run: poetry run f1 run ${YEAR:+--year "$YEAR"} $WITH_TELEMETRY
+
+      - name: Salvar lake
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data
+          key: f1-lake-${{ github.run_id }}
+
+      - name: Publicar lake
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: f1-lake-${{ github.run_id }}
+          path: data
+          retention-days: 7
+          if-no-files-found: ignore

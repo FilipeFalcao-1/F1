@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.14"
+  POETRY_VERSION: "2.5.1"
+  POETRY_VIRTUALENVS_IN_PROJECT: "true"
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      # pipx já vem instalado nos runners do GitHub; o Poetry precisa existir antes do cache do setup-python
+      - name: Instalar Poetry
+        run: pipx install "poetry==${POETRY_VERSION}"
+
+      - name: Configurar Python
+        id: setup-python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: poetry
+
+      - name: Selecionar interpretador
+        run: poetry env use "${{ steps.setup-python.outputs.python-path }}"
+
+      - name: Validar pyproject.toml e lock
+        run: poetry check --lock
+
+      - name: Instalar dependências
+        run: poetry install --no-interaction
+
+      - name: Ruff lint
+        run: poetry run ruff check . --output-format=github
+
+      - name: Ruff format
+        run: poetry run ruff format --check .
+
+      - name: Mypy
+        run: poetry run mypy
+
+      - name: Testes e cobertura (mínimo 50%)
+        run: >-
+          poetry run pytest tests/
+          --cov=f1
+          --cov-report=term-missing
+          --cov-report=xml
+          --cov-fail-under=50
+
+      - name: Documentação
+        run: poetry run mkdocs build --strict
+
+      - name: Auditoria de vulnerabilidades
+        run: poetry run pip-audit --skip-editable
+
+      - name: Publicar relatório de cobertura
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-xml
+          path: coverage.xml
+          if-no-files-found: ignore

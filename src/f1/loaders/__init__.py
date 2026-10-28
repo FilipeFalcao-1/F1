@@ -1,0 +1,1 @@
+"""Escrita no data lake."""

@@ -1,0 +1,34 @@
+# Copiar para .gitignore na raiz do projeto
+
+# Ambientes e segredos
+.venv/
+.env
+.env.*
+!.env.example
+
+# Bytecode e caches
+__pycache__/
+*.py[cod]
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+
+# Cobertura
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Build e documentação gerada
+build/
+dist/
+*.egg-info/
+site/
+
+# Notebooks e dados locais
+.ipynb_checkpoints/
+data/
+
+# IDE e sistema operacional
+.idea/
+.DS_Store

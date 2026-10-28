@@ -1,0 +1,92 @@
+[
+ {
+  "meeting_key": 1219,
+  "session_key": 9165,
+  "team_name": "Red Bull Racing",
+  "position_start": 1,
+  "position_current": 1,
+  "points_start": 583.0,
+  "points_current": 597.0
+ },
+ {
+  "meeting_key": 1219,
+  "session_key": 9165,
+  "team_name": "Mercedes",
+  "position_start": 2,
+  "position_current": 2,
+  "points_start": 273.0,
+  "points_current": 289.0
+ },
+ {
+  "meeting_key": 1219,
+  "session_key": 9165,
+  "team_name": "Ferrari",
+  "position_start": 3,
+  "position_current": 3,
+  "points_start": 228.0,
+  "points_current": 265.0
+ },
+ {
+  "meeting_key": 1219,
+  "session_key": 9165,
+  "team_name": "Aston Martin",
+  "position_start": 4,
+  "position_current": 4,
+  "points_start": 217.0,
+  "points_current": 217.0
+ },
+ {
+  "meeting_key": 1219,
+  "session_key": 9165,
+  "team_name": "McLaren",
+  "position_start": 5,
+  "position_current": 5,
+  "points_start": 115.0,
+  "points_current": 139.0
+ },
+ {
+  "meeting_key": 1219,
+  "session_key": 9165,
+  "team_name": "Alpine",
+  "position_start": 6,
+  "position_current": 6,
+  "points_start": 73.0,
+  "points_current": 81.0
+ },
+ {
+  "meeting_key": 1219,
+  "session_key": 9165,
+  "team_name": "Williams",
+  "position_start": 7,
+  "position_current": 7,
+  "points_start": 21.0,
+  "points_current": 21.0
+ },
+ {
+  "meeting_key": 1219,
+  "session_key": 9165,
+  "team_name": "Haas F1 Team",
+  "position_start": 8,
+  "position_current": 8,
+  "points_start": 11.0,
+  "points_current": 12.0
+ },
+ {
+  "meeting_key": 1219,
+  "session_key": 9165,
+  "team_name": "Alfa Romeo",
+  "position_start": 9,
+  "position_current": 9,
+  "points_start": 10.0,
+  "points_current": 10.0
+ },
+ {
+  "meeting_key": 1219,
+  "session_key": 9165,
+  "team_name": "AlphaTauri",
+  "position_start": 10,
+  "position_current": 10,
+  "points_start": 3.0,
+  "points_current": 5.0
+ }
+]

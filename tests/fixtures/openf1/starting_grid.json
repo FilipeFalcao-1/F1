@@ -1,0 +1,23 @@
+[
+ {
+  "position": 1,
+  "driver_number": 55,
+  "lap_duration": 90.984,
+  "meeting_key": 1219,
+  "session_key": 9161
+ },
+ {
+  "position": 4,
+  "driver_number": 4,
+  "lap_duration": 91.27,
+  "meeting_key": 1219,
+  "session_key": 9161
+ },
+ {
+  "position": 11,
+  "driver_number": 1,
+  "lap_duration": 92.173,
+  "meeting_key": 1219,
+  "session_key": 9161
+ }
+]

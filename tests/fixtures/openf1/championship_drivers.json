@@ -1,0 +1,29 @@
+[
+ {
+  "meeting_key": 1219,
+  "session_key": 9165,
+  "driver_number": 1,
+  "position_start": 1,
+  "position_current": 1,
+  "points_start": 364.0,
+  "points_current": 374.0
+ },
+ {
+  "meeting_key": 1219,
+  "session_key": 9165,
+  "driver_number": 55,
+  "position_start": 5,
+  "position_current": 5,
+  "points_start": 117.0,
+  "points_current": 142.0
+ },
+ {
+  "meeting_key": 1219,
+  "session_key": 9165,
+  "driver_number": 4,
+  "position_start": 8,
+  "position_current": 8,
+  "points_start": 79.0,
+  "points_current": 97.0
+ }
+]

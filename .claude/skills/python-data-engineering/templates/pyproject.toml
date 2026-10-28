@@ -1,0 +1,103 @@
+# Template de pyproject.toml — Poetry >= 2.0
+# Placeholders: nome_projeto (pacote em src/nome_projeto), versão do Python e autores.
+# Gere as dependências com `poetry add` em vez de editar à mão; os blocos abaixo
+# mostram o resultado esperado. Depois de qualquer ajuste manual: `poetry lock`.
+
+[project]
+name = "nome_projeto"
+version = "0.1.0"
+description = "Descrição curta do projeto"
+authors = [{ name = "Time de Engenharia de Dados", email = "time-dados@example.com" }]
+readme = "README.md"
+requires-python = ">=3.12,<4.0"
+dependencies = [
+    "pydantic-settings>=2.3,<3.0",  # poetry add pydantic-settings
+]
+
+[project.scripts]
+nome_projeto = "nome_projeto.main:main"
+
+[tool.poetry]
+packages = [{ include = "nome_projeto", from = "src" }]
+requires-poetry = ">=2.0"
+
+# poetry add --group dev ruff pytest pytest-cov mypy mkdocs-material "mkdocstrings[python]" pip-audit
+[tool.poetry.group.dev.dependencies]
+ruff = ">=0.6"
+pytest = ">=8.0"
+pytest-cov = ">=5.0"
+mypy = ">=1.10"
+mkdocs-material = ">=9.5"
+mkdocstrings = { version = ">=0.25", extras = ["python"] }
+pip-audit = ">=2.7"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+# ---------------------------------------------------------------- Ruff
+[tool.ruff]
+line-length = 100
+target-version = "py312"  # manter alinhado ao requires-python
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle (erros)
+    "W",    # pycodestyle (avisos)
+    "F",    # pyflakes: imports/variáveis não usados, nomes indefinidos
+    "I",    # isort: organização de imports
+    "B",    # flake8-bugbear: bugs prováveis
+    "UP",   # pyupgrade: sintaxe moderna
+    "SIM",  # flake8-simplify
+    "C4",   # flake8-comprehensions
+    "PTH",  # flake8-use-pathlib
+    "T20",  # flake8-print: proíbe print()
+    "RUF",  # regras específicas do Ruff
+]
+ignore = [
+    "E501",  # comprimento de linha é responsabilidade do formatter
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["nome_projeto"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"  # efetivo se a família "D" for habilitada
+
+[tool.ruff.format]
+quote-style = "double"
+docstring-code-format = true
+
+# ---------------------------------------------------------------- mypy
+[tool.mypy]
+python_version = "3.12"
+files = ["src"]
+strict = true
+warn_unreachable = true
+plugins = ["pydantic.mypy"]  # remover se o projeto não usar Pydantic
+
+# ---------------------------------------------------------------- Pytest
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = ["-ra", "--strict-markers", "--strict-config", "--import-mode=importlib"]
+markers = [
+    "integration: testes que dependem de infraestrutura externa (banco, container, rede)",
+]
+
+# ---------------------------------------------------------------- Coverage
+[tool.coverage.run]
+source = ["nome_projeto"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 50  # piso obrigatório; só pode subir
+show_missing = true
+skip_empty = true
+exclude_also = [
+    "if TYPE_CHECKING:",
+    "if __name__ == .__main__.:",
+    "raise NotImplementedError",
+    "\\.\\.\\.$",
+]
