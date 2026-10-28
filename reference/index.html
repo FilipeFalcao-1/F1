@@ -1,0 +1,8186 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Pipeline de dados da OpenF1 API (bronze, silver e gold)">
+      
+      
+      
+      
+        <link rel="prev" href="../adr/0001-lake-no-github-actions/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Referência da API - f1</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#referencia-da-api" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href=".." title="f1" class="md-header__button md-logo" aria-label="f1" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            f1
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Referência da API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/FilipeFalcao-1/F1" title="Ir para repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="f1" class="md-nav__button md-logo" aria-label="f1" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    f1
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/FilipeFalcao-1/F1" title="Ir para repositório" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Início
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Primeiros passos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Endpoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dashboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dashboard
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operação e troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Desenvolvimento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decisões (ADR)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Decisões (ADR)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adr/0001-lake-no-github-actions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    0001: Persistência do lake na ingestão agendada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referência da API
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Referência da API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuração
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.config.settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        settings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.config.settings.Settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.config.settings.load_settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        load_settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registro-de-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registro de endpoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.Record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Record
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.Scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.EndpointSpec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EndpointSpec
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.Partition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Partition
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Partition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.Partition.path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.Partition.from_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        from_path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.Partition.query_params" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        query_params
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.endpoints_by_scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        endpoints_by_scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.get_endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.schemas.silver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        silver
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="silver">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.silver.JSON" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.silver.Contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contract
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dominio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domínio
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.domain.sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sessions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sessions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.domain.sessions.SessionInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SessionInfo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SessionInfo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.domain.sessions.SessionInfo.is_race" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_race
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.domain.sessions.SessionInfo.skip_reason" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        skip_reason
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.domain.sessions.SessionInfo.has_telemetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        has_telemetry
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extracao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extração
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.extractors.client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        client
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="client">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.extractors.client.RateLimiter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RateLimiter
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RateLimiter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.extractors.client.RateLimiter.acquire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        acquire
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.extractors.client.OpenF1Client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenF1Client
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenF1Client">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.extractors.client.OpenF1Client.get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.extractors.openf1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        openf1
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="openf1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.extractors.openf1.OpenF1Extractor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenF1Extractor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenF1Extractor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.extractors.openf1.OpenF1Extractor.extract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        extract
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.extractors.openf1.OpenF1Extractor.session_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        session_info
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.extractors.openf1.parse_sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        parse_sessions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformação
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.transformers.normalize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        normalize
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="normalize">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.transformers.normalize.records_to_frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        records_to_frame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.transformers.normalize.normalize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        normalize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.transformers.normalize.split_gap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        split_gap
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.transformers.validate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        validate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="validate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.transformers.validate.SplitResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SplitResult
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.transformers.validate.check_columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        check_columns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.transformers.validate.split_valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        split_valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#carga-e-catalogo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Carga e catálogo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.loaders.files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lake
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lake">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.duckdb_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        duckdb_path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.bronze_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bronze_path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.silver_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        silver_path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.quarantine_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        quarantine_path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.silver_glob" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        silver_glob
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.has_silver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        has_silver
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.write_bronze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        write_bronze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.read_bronze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        read_bronze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.write_silver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        write_silver
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.write_quarantine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        write_quarantine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.bronze_partitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bronze_partitions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.repositories.catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        catalog
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="catalog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.catalog.ManifestEntry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ManifestEntry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.catalog.Catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Catalog
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Catalog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.catalog.Catalog.record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        record
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.catalog.Catalog.completed_endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        completed_endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.catalog.Catalog.refresh_silver_view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        refresh_silver_view
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.catalog.Catalog.build_table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        build_table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.repositories.marts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        marts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="marts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MartsReader
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MartsReader">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader.is_ready" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_ready
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader.races" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        races
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader.race_results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        race_results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader.clean_laps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        clean_laps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader.stints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader.pit_stops_by_team" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pit_stops_by_team
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader.fastest_stops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fastest_stops
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader.championship" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        championship
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.dashboard.charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        charts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="charts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.MAX_SERIES" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MAX_SERIES
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.Palette" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Palette
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Palette">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.Palette.dark_ink_on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dark_ink_on
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.assign_slots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        assign_slots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.positions_gained_chart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        positions_gained_chart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.stint_chart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stint_chart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.lap_pace_chart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lap_pace_chart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.team_bar_chart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        team_bar_chart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.championship_chart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        championship_chart
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipelines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.pipelines.ingest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ingest
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ingest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.ingest.IngestResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IngestResult
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.ingest.IngestPipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IngestPipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IngestPipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.ingest.IngestPipeline.ingest_calendar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ingest_calendar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.ingest.IngestPipeline.ingest_session_key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ingest_session_key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.ingest.IngestPipeline.ingest_year" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ingest_year
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.ingest.plan_endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plan_endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.pipelines.refine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        refine
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="refine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.refine.RefineResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RefineResult
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.refine.RefinePipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RefinePipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RefinePipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.refine.RefinePipeline.run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        run
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.pipelines.marts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        marts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="marts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.marts.GOLD_MARTS" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GOLD_MARTS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.marts.MartsPipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MartsPipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MartsPipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.marts.MartsPipeline.build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        build
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.marts.load_mart_sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        load_mart_sql
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#excecoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exceções
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        exceptions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="exceptions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.exceptions.F1Error" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F1Error
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.exceptions.ConfigurationError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ConfigurationError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.exceptions.ExtractionError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExtractionError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.exceptions.RateLimitError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RateLimitError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.exceptions.DataValidationError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DataValidationError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.exceptions.LoadError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadError
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuracao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuração
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.config.settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        settings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.config.settings.Settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.config.settings.load_settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        load_settings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registro-de-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registro de endpoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.Record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Record
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.Scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.EndpointSpec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EndpointSpec
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.Partition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Partition
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Partition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.Partition.path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.Partition.from_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        from_path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.Partition.query_params" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        query_params
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.endpoints_by_scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        endpoints_by_scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.endpoints.get_endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.schemas.silver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        silver
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="silver">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.silver.JSON" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.schemas.silver.Contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contract
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dominio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domínio
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.domain.sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sessions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sessions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.domain.sessions.SessionInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SessionInfo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SessionInfo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.domain.sessions.SessionInfo.is_race" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_race
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.domain.sessions.SessionInfo.skip_reason" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        skip_reason
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.domain.sessions.SessionInfo.has_telemetry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        has_telemetry
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extracao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extração
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.extractors.client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        client
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="client">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.extractors.client.RateLimiter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RateLimiter
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RateLimiter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.extractors.client.RateLimiter.acquire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        acquire
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.extractors.client.OpenF1Client" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenF1Client
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenF1Client">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.extractors.client.OpenF1Client.get" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.extractors.openf1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        openf1
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="openf1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.extractors.openf1.OpenF1Extractor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenF1Extractor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenF1Extractor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.extractors.openf1.OpenF1Extractor.extract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        extract
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.extractors.openf1.OpenF1Extractor.session_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        session_info
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.extractors.openf1.parse_sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        parse_sessions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformação
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.transformers.normalize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        normalize
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="normalize">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.transformers.normalize.records_to_frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        records_to_frame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.transformers.normalize.normalize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        normalize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.transformers.normalize.split_gap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        split_gap
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.transformers.validate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        validate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="validate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.transformers.validate.SplitResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SplitResult
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.transformers.validate.check_columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        check_columns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.transformers.validate.split_valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        split_valid
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#carga-e-catalogo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Carga e catálogo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.loaders.files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lake
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lake">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.duckdb_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        duckdb_path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.bronze_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bronze_path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.silver_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        silver_path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.quarantine_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        quarantine_path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.silver_glob" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        silver_glob
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.has_silver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        has_silver
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.write_bronze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        write_bronze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.read_bronze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        read_bronze
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.write_silver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        write_silver
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.write_quarantine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        write_quarantine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.loaders.files.Lake.bronze_partitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bronze_partitions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.repositories.catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        catalog
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="catalog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.catalog.ManifestEntry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ManifestEntry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.catalog.Catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Catalog
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Catalog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.catalog.Catalog.record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        record
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.catalog.Catalog.completed_endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        completed_endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.catalog.Catalog.refresh_silver_view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        refresh_silver_view
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.catalog.Catalog.build_table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        build_table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dashboard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.repositories.marts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        marts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="marts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MartsReader
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MartsReader">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader.is_ready" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        is_ready
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader.races" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        races
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader.race_results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        race_results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader.clean_laps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        clean_laps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader.stints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader.pit_stops_by_team" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pit_stops_by_team
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader.fastest_stops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fastest_stops
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.repositories.marts.MartsReader.championship" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        championship
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.dashboard.charts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        charts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="charts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.MAX_SERIES" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MAX_SERIES
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.Palette" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Palette
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Palette">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.Palette.dark_ink_on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dark_ink_on
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.assign_slots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        assign_slots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.positions_gained_chart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        positions_gained_chart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.stint_chart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stint_chart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.lap_pace_chart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lap_pace_chart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.team_bar_chart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        team_bar_chart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.dashboard.charts.championship_chart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        championship_chart
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pipelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipelines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.pipelines.ingest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ingest
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ingest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.ingest.IngestResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IngestResult
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.ingest.IngestPipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IngestPipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IngestPipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.ingest.IngestPipeline.ingest_calendar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ingest_calendar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.ingest.IngestPipeline.ingest_session_key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ingest_session_key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.ingest.IngestPipeline.ingest_year" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ingest_year
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.ingest.plan_endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        plan_endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.pipelines.refine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        refine
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="refine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.refine.RefineResult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RefineResult
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.refine.RefinePipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RefinePipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RefinePipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.refine.RefinePipeline.run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        run
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.pipelines.marts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        marts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="marts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.marts.GOLD_MARTS" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GOLD_MARTS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.marts.MartsPipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MartsPipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MartsPipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.marts.MartsPipeline.build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        build
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.pipelines.marts.load_mart_sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        load_mart_sql
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#excecoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exceções
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f1.exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        exceptions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="exceptions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1.exceptions.F1Error" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F1Error
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.exceptions.ConfigurationError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ConfigurationError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.exceptions.ExtractionError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ExtractionError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.exceptions.RateLimitError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RateLimitError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.exceptions.DataValidationError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DataValidationError
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f1.exceptions.LoadError" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadError
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="referencia-da-api">Referência da API<a class="headerlink" href="#referencia-da-api" title="Permanent link">&para;</a></h1>
+<h2 id="configuracao">Configuração<a class="headerlink" href="#configuracao" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="f1.config.settings" class="doc doc-heading">
+            <code>f1.config.settings</code>
+
+
+<a href="#f1.config.settings" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Settings da aplicação, lidos de variáveis de ambiente com prefixo <code>F1_</code>.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.config.settings.Settings" class="doc doc-heading">
+            <code>Settings</code>
+
+
+<a href="#f1.config.settings.Settings" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="pydantic_settings.BaseSettings">BaseSettings</span></code></p>
+
+
+
+        <p>Configuração validada na inicialização.</p>
+<p>Todos os campos têm default: os dados históricos da OpenF1 não exigem segredo.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="f1.config.settings.load_settings" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">load_settings</span><span class="p">()</span></code>
+
+<a href="#f1.config.settings.load_settings" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Carrega e valida os settings, falhando rápido com erro claro.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Settings (f1.config.settings.Settings)" href="#f1.config.settings.Settings">Settings</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Settings validados.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ConfigurationError (f1.exceptions.ConfigurationError)" href="#f1.exceptions.ConfigurationError">ConfigurationError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se alguma variável <code>F1_*</code> for inválida.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="registro-de-endpoints">Registro de endpoints<a class="headerlink" href="#registro-de-endpoints" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="f1.schemas.endpoints" class="doc doc-heading">
+            <code>f1.schemas.endpoints</code>
+
+
+<a href="#f1.schemas.endpoints" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Registro declarativo dos 18 endpoints da OpenF1 e da partição do lake.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-type_alias">
+
+
+
+<h3 id="f1.schemas.endpoints.Record" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">Record</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]</span></code>
+
+<a href="#f1.schemas.endpoints.Record" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Um objeto JSON devolvido pela API.</p>
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.schemas.endpoints.Scope" class="doc doc-heading">
+            <code>Scope</code>
+
+
+<a href="#f1.schemas.endpoints.Scope" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="enum.StrEnum">StrEnum</span></code></p>
+
+
+
+        <p>Granularidade da chamada à API, que também define a partição no lake.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.schemas.endpoints.EndpointSpec" class="doc doc-heading">
+            <code>EndpointSpec</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#f1.schemas.endpoints.EndpointSpec" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Metadados de um endpoint.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="f1.schemas.endpoints.EndpointSpec.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Nome do endpoint na API (<code>/v1/{name}</code>).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="f1.schemas.endpoints.EndpointSpec.scope">scope</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Scope (f1.schemas.endpoints.Scope)" href="#f1.schemas.endpoints.Scope">Scope</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Granularidade da extração e da partição.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="f1.schemas.endpoints.EndpointSpec.primary_key">primary_key</span></code></td>
+            <td>
+                  <code><span title="tuple">tuple</span>[<span title="str">str</span>, ...]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Colunas que identificam um registro na silver.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="f1.schemas.endpoints.EndpointSpec.race_only">race_only</span></code></td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Só existe para sessões <code>session_type == "Race"</code> (inclui sprints).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="f1.schemas.endpoints.EndpointSpec.deprecated_fields">deprecated_fields</span></code></td>
+            <td>
+                  <code><span title="tuple">tuple</span>[<span title="str">str</span>, ...]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Campos descartados na silver (serão removidos da API).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="f1.schemas.endpoints.EndpointSpec.beta">beta</span></code></td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Endpoint em beta na OpenF1 (dados podem estar incompletos).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.schemas.endpoints.Partition" class="doc doc-heading">
+            <code>Partition</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#f1.schemas.endpoints.Partition" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Partição do lake: <code>year=Y[/session_key=N[/driver_number=D]]</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="f1.schemas.endpoints.Partition.path" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">path</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#f1.schemas.endpoints.Partition.path" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Caminho relativo no estilo Hive.</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.schemas.endpoints.Partition.from_path" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">from_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+<a href="#f1.schemas.endpoints.Partition.from_path" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Reconstrói a partição a partir do caminho relativo Hive.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ConfigurationError (f1.exceptions.ConfigurationError)" href="#f1.exceptions.ConfigurationError">ConfigurationError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se o caminho não seguir o layout esperado.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.schemas.endpoints.Partition.query_params" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">query_params</span><span class="p">(</span><span class="n">scope</span><span class="p">)</span></code>
+
+<a href="#f1.schemas.endpoints.Partition.query_params" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Filtros da API que correspondem a esta partição no escopo dado.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ConfigurationError (f1.exceptions.ConfigurationError)" href="#f1.exceptions.ConfigurationError">ConfigurationError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se a partição não tiver as chaves exigidas pelo escopo.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="f1.schemas.endpoints.endpoints_by_scope" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">endpoints_by_scope</span><span class="p">(</span><span class="o">*</span><span class="n">scopes</span><span class="p">)</span></code>
+
+<a href="#f1.schemas.endpoints.endpoints_by_scope" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Endpoints dos escopos pedidos, na ordem do registro (<code>drivers</code> antes da telemetria).</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="f1.schemas.endpoints.get_endpoints" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_endpoints</span><span class="p">(</span><span class="n">names</span><span class="p">)</span></code>
+
+<a href="#f1.schemas.endpoints.get_endpoints" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Converte uma lista separada por vírgula em specs, validando os nomes.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>names</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Nomes como <code>"laps,stints"</code>.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="tuple">tuple</span>[<a class="autorefs autorefs-internal" title="EndpointSpec
+
+
+  
+      dataclass
+   (f1.schemas.endpoints.EndpointSpec)" href="#f1.schemas.endpoints.EndpointSpec">EndpointSpec</a>, ...]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Specs na ordem do registro.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ConfigurationError (f1.exceptions.ConfigurationError)" href="#f1.exceptions.ConfigurationError">ConfigurationError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se algum nome não existir no registro.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="f1.schemas.silver" class="doc doc-heading">
+            <code>f1.schemas.silver</code>
+
+
+<a href="#f1.schemas.silver" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Contratos de dados por endpoint: payload bruto da API e schema tipado da silver.</p>
+<p><code>raw</code> descreve o que a API entrega (datas como texto; campos polimórficos, como
+<code>intervals.interval</code>, como texto JSON). <code>silver</code> é o schema gravado em Parquet.
+Mudanças na API (coluna nova ou ausente) falham o refine do endpoint de forma explícita.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="f1.schemas.silver.JSON" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">JSON</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">String</span><span class="p">()</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+<a href="#f1.schemas.silver.JSON" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Campo polimórfico (número, texto ou lista): mantido como texto JSON até a normalização.</p>
+
+    </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.schemas.silver.Contract" class="doc doc-heading">
+            <code>Contract</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#f1.schemas.silver.Contract" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Contrato de um endpoint.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="f1.schemas.silver.Contract.raw">raw</span></code></td>
+            <td>
+                  <code><span title="f1.schemas.silver.Schema">Schema</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Colunas e tipos do payload da API.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="f1.schemas.silver.Contract.silver">silver</span></code></td>
+            <td>
+                  <code><span title="f1.schemas.silver.Schema">Schema</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Colunas e tipos da silver, na ordem gravada.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="f1.schemas.silver.Contract.optional">optional</span></code></td>
+            <td>
+                  <code><span title="frozenset">frozenset</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Colunas que a API pode omitir (somadas aos campos deprecados).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="dominio">Domínio<a class="headerlink" href="#dominio" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="f1.domain.sessions" class="doc doc-heading">
+            <code>f1.domain.sessions</code>
+
+
+<a href="#f1.domain.sessions" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Regras de negócio sobre sessões: o que pode ser ingerido e quando.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.domain.sessions.SessionInfo" class="doc doc-heading">
+            <code>SessionInfo</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#f1.domain.sessions.SessionInfo" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Metadados mínimos de uma sessão, vindos do endpoint <code>sessions</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="f1.domain.sessions.SessionInfo.is_race" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">is_race</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#f1.domain.sessions.SessionInfo.is_race" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Corridas e sprints (<code>session_type == "Race"</code>).</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.domain.sessions.SessionInfo.skip_reason" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">skip_reason</span><span class="p">(</span><span class="n">now</span><span class="p">)</span></code>
+
+<a href="#f1.domain.sessions.SessionInfo.skip_reason" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Motivo para não ingerir a sessão agora, ou <code>None</code> se ela está pronta.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>now</code>
+            </td>
+            <td>
+                  <code><span title="datetime.datetime">datetime</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Instante atual (timezone-aware), injetado para testes determinísticos.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.domain.sessions.SessionInfo.has_telemetry" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">has_telemetry</span><span class="p">(</span><span class="n">telemetry_session_types</span><span class="p">)</span></code>
+
+<a href="#f1.domain.sessions.SessionInfo.has_telemetry" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Se a telemetria (<code>car_data</code>/<code>location</code>) deve ser buscada para esta sessão.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="extracao">Extração<a class="headerlink" href="#extracao" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="f1.extractors.client" class="doc doc-heading">
+            <code>f1.extractors.client</code>
+
+
+<a href="#f1.extractors.client" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Cliente HTTP da OpenF1 com rate limit, retry e backoff.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.extractors.client.RateLimiter" class="doc doc-heading">
+            <code>RateLimiter</code>
+
+
+<a href="#f1.extractors.client.RateLimiter" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Limita requisições por janela deslizante de 1 s e de 60 s.</p>
+<p>A OpenF1 impõe dois limites simultâneos (por segundo e por minuto), então a
+janela deslizante com o histórico das chamadas é mais simples que dois token buckets.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.extractors.client.RateLimiter.acquire" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">acquire</span><span class="p">()</span></code>
+
+<a href="#f1.extractors.client.RateLimiter.acquire" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Bloqueia até que uma nova requisição caiba nos dois limites.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.extractors.client.OpenF1Client" class="doc doc-heading">
+            <code>OpenF1Client</code>
+
+
+<a href="#f1.extractors.client.OpenF1Client" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Faz GET na OpenF1 e devolve a lista de registros JSON.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>http</code>
+            </td>
+            <td>
+                  <code><span title="httpx.Client">Client</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Cliente <code>httpx</code> já configurado com <code>base_url</code>, timeout e headers.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>rate_limiter</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="RateLimiter (f1.extractors.client.RateLimiter)" href="#f1.extractors.client.RateLimiter">RateLimiter</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Limitador aplicado antes de cada tentativa.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>max_retries</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Novas tentativas para 429, 5xx, timeout e erro de conexão.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>sleep</code>
+            </td>
+            <td>
+                  <code><span title="collections.abc.Callable">Callable</span>[[<span title="float">float</span>], None]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Função de espera (injetável para testes).</p>
+              </div>
+            </td>
+            <td>
+                  <code><span title="time.sleep">sleep</span></code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.extractors.client.OpenF1Client.get" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span></code>
+
+<a href="#f1.extractors.client.OpenF1Client.get" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Consulta um endpoint.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>endpoint</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Nome do endpoint (<code>laps</code>, <code>sessions</code>...).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>params</code>
+            </td>
+            <td>
+                  <code><span title="f1.extractors.client.QueryParams">QueryParams</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Filtros da query string.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="Record = dict[str, object] (f1.schemas.endpoints.Record)" href="#f1.schemas.endpoints.Record">Record</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Registros devolvidos. Lista vazia quando a API responde "No results found.".</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="RateLimitError (f1.exceptions.RateLimitError)" href="#f1.exceptions.RateLimitError">RateLimitError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se o 429 persistir depois de todas as tentativas.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ExtractionError (f1.exceptions.ExtractionError)" href="#f1.exceptions.ExtractionError">ExtractionError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Em erro não recuperável ou tentativas esgotadas.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="f1.extractors.openf1" class="doc doc-heading">
+            <code>f1.extractors.openf1</code>
+
+
+<a href="#f1.extractors.openf1" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Extração genérica da OpenF1 guiada pelo registro de endpoints.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.extractors.openf1.OpenF1Extractor" class="doc doc-heading">
+            <code>OpenF1Extractor</code>
+
+
+<a href="#f1.extractors.openf1.OpenF1Extractor" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Busca os registros de um endpoint para uma partição do lake.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.extractors.openf1.OpenF1Extractor.extract" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">extract</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="n">partition</span><span class="p">)</span></code>
+
+<a href="#f1.extractors.openf1.OpenF1Extractor.extract" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Busca os registros brutos de <code>spec</code> na <code>partition</code>.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>spec</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="EndpointSpec
+
+
+  
+      dataclass
+   (f1.schemas.endpoints.EndpointSpec)" href="#f1.schemas.endpoints.EndpointSpec">EndpointSpec</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Endpoint a consultar; o escopo define os filtros.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>partition</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Partition
+
+
+  
+      dataclass
+   (f1.schemas.endpoints.Partition)" href="#f1.schemas.endpoints.Partition">Partition</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Partição com <code>year</code>, <code>session_key</code> e <code>driver_number</code>.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="Record = dict[str, object] (f1.schemas.endpoints.Record)" href="#f1.schemas.endpoints.Record">Record</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Registros JSON exatamente como a API devolveu.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.extractors.openf1.OpenF1Extractor.session_info" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">session_info</span><span class="p">(</span><span class="n">session_key</span><span class="p">)</span></code>
+
+<a href="#f1.extractors.openf1.OpenF1Extractor.session_info" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Busca os metadados de uma sessão.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ExtractionError (f1.exceptions.ExtractionError)" href="#f1.exceptions.ExtractionError">ExtractionError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se a sessão não existir ou vier fora do contrato.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="f1.extractors.openf1.parse_sessions" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">parse_sessions</span><span class="p">(</span><span class="n">records</span><span class="p">)</span></code>
+
+<a href="#f1.extractors.openf1.parse_sessions" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Valida registros do endpoint <code>sessions</code> e os converte em <code>SessionInfo</code>.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ExtractionError (f1.exceptions.ExtractionError)" href="#f1.exceptions.ExtractionError">ExtractionError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se algum registro não seguir o contrato mínimo.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="transformacao">Transformação<a class="headerlink" href="#transformacao" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="f1.transformers.normalize" class="doc doc-heading">
+            <code>f1.transformers.normalize</code>
+
+
+<a href="#f1.transformers.normalize" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Transformações puras bronze → silver: parse, regras por endpoint e cast para o contrato.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="f1.transformers.normalize.records_to_frame" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">records_to_frame</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">raw</span><span class="p">)</span></code>
+
+<a href="#f1.transformers.normalize.records_to_frame" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Monta o DataFrame bruto com os tipos do contrato da API.</p>
+<p>Os registros passam por NDJSON porque <code>read_ndjson</code> aceita campos polimórficos
+(número, texto ou lista) como texto JSON, o que <code>from_dicts</code> não faz.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="DataValidationError (f1.exceptions.DataValidationError)" href="#f1.exceptions.DataValidationError">DataValidationError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se algum valor não couber no tipo declarado.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="f1.transformers.normalize.normalize" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">normalize</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">contract</span><span class="p">)</span></code>
+
+<a href="#f1.transformers.normalize.normalize" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Converte o DataFrame bruto de um endpoint para o schema da silver.</p>
+<p>Etapas: parse das datas para UTC, regra específica do endpoint (se houver) e cast
+estrito para <code>contract.silver</code>, que também descarta campos deprecados.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="DataValidationError (f1.exceptions.DataValidationError)" href="#f1.exceptions.DataValidationError">DataValidationError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se algum valor não puder ser convertido.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="f1.transformers.normalize.split_gap" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">split_gap</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">prefix</span><span class="p">)</span></code>
+
+<a href="#f1.transformers.normalize.split_gap" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Separa um gap da OpenF1 em segundos e voltas de diferença.</p>
+<p><code>"+1 LAP"</code>/<code>"+2 LAPS"</code> viram <code>{prefix}_laps_behind</code> (com <code>_seconds</code> nulo);
+números viram <code>{prefix}_seconds</code>. Texto fora desses formatos falha o cast.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>value</code>
+            </td>
+            <td>
+                  <code><span title="polars.Expr">Expr</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Expressão textual com o valor bruto.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>prefix</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Prefixo das colunas geradas.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="f1.transformers.validate" class="doc doc-heading">
+            <code>f1.transformers.validate</code>
+
+
+<a href="#f1.transformers.validate" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Validação de contrato e separação de registros válidos e inválidos.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.transformers.validate.SplitResult" class="doc doc-heading">
+            <code>SplitResult</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#f1.transformers.validate.SplitResult" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Resultado da separação de uma partição.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="f1.transformers.validate.SplitResult.valid">valid</span></code></td>
+            <td>
+                  <code><span title="polars.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Linhas aptas para a silver, únicas pela chave primária.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="f1.transformers.validate.SplitResult.rejected">rejected</span></code></td>
+            <td>
+                  <code><span title="polars.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Linhas para a quarentena, com a coluna <code>reject_reason</code>.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="f1.transformers.validate.SplitResult.duplicates_removed">duplicates_removed</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Duplicatas exatas descartadas (mesmo conteúdo em todas as colunas).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="f1.transformers.validate.check_columns" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">check_columns</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">contract</span><span class="p">)</span></code>
+
+<a href="#f1.transformers.validate.check_columns" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Falha se o payload tiver colunas novas ou não tiver colunas obrigatórias.</p>
+<p>Payload vazio é válido (sessões sem dados, como <code>team_radio</code> em 2026).</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="DataValidationError (f1.exceptions.DataValidationError)" href="#f1.exceptions.DataValidationError">DataValidationError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Em mudança de schema da API.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="f1.transformers.validate.split_valid" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">split_valid</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">primary_key</span><span class="p">)</span></code>
+
+<a href="#f1.transformers.validate.split_valid" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Deduplica e separa as linhas que violam a chave primária.</p>
+<ul>
+<li>Chave com algum valor nulo: rejeitada.</li>
+<li>Linhas idênticas: mantida uma, sem rejeição.</li>
+<li>Mesma chave com conteúdo diferente: todas as ocorrências rejeitadas, porque não há
+  como escolher a correta.</li>
+</ul>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>frame</code>
+            </td>
+            <td>
+                  <code><span title="polars.DataFrame">DataFrame</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Partição já normalizada.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>primary_key</code>
+            </td>
+            <td>
+                  <code><span title="collections.abc.Sequence">Sequence</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Colunas da chave primária.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="carga-e-catalogo">Carga e catálogo<a class="headerlink" href="#carga-e-catalogo" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="f1.loaders.files" class="doc doc-heading">
+            <code>f1.loaders.files</code>
+
+
+<a href="#f1.loaders.files" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Layout do data lake local e escrita atômica por partição.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.loaders.files.Lake" class="doc doc-heading">
+            <code>Lake</code>
+
+
+<a href="#f1.loaders.files.Lake" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Data lake em disco com as camadas bronze, silver e quarentena.</p>
+<p>Cada partição é um arquivo único, sobrescrito de forma atômica (<code>.tmp</code> + <code>replace</code>),
+o que torna a reexecução idempotente.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>root</code>
+            </td>
+            <td>
+                  <code><span title="pathlib.Path">Path</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Raiz do lake (<code>F1_DATA_DIR</code>).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="f1.loaders.files.Lake.duckdb_path" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">duckdb_path</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#f1.loaders.files.Lake.duckdb_path" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Arquivo do catálogo DuckDB.</p>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.loaders.files.Lake.bronze_path" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">bronze_path</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">partition</span><span class="p">)</span></code>
+
+<a href="#f1.loaders.files.Lake.bronze_path" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Arquivo bronze de uma partição.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.loaders.files.Lake.silver_path" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">silver_path</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">partition</span><span class="p">)</span></code>
+
+<a href="#f1.loaders.files.Lake.silver_path" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Arquivo silver de uma partição.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.loaders.files.Lake.quarantine_path" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">quarantine_path</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">partition</span><span class="p">)</span></code>
+
+<a href="#f1.loaders.files.Lake.quarantine_path" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Arquivo de quarentena de uma partição.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.loaders.files.Lake.silver_glob" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">silver_glob</span><span class="p">(</span><span class="n">endpoint</span><span class="p">)</span></code>
+
+<a href="#f1.loaders.files.Lake.silver_glob" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Padrão absoluto que casa todos os Parquet silver de um endpoint.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.loaders.files.Lake.has_silver" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">has_silver</span><span class="p">(</span><span class="n">endpoint</span><span class="p">)</span></code>
+
+<a href="#f1.loaders.files.Lake.has_silver" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Se existe ao menos uma partição silver do endpoint.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.loaders.files.Lake.write_bronze" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">write_bronze</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">partition</span><span class="p">,</span> <span class="n">records</span><span class="p">)</span></code>
+
+<a href="#f1.loaders.files.Lake.write_bronze" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Grava os registros brutos como JSON comprimido, sobrescrevendo a partição.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.loaders.files.Lake.read_bronze" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">read_bronze</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">partition</span><span class="p">)</span></code>
+
+<a href="#f1.loaders.files.Lake.read_bronze" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Lê os registros brutos de uma partição.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="LoadError (f1.exceptions.LoadError)" href="#f1.exceptions.LoadError">LoadError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se o arquivo não existir ou não puder ser lido.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="DataValidationError (f1.exceptions.DataValidationError)" href="#f1.exceptions.DataValidationError">DataValidationError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se o conteúdo não for uma lista de objetos JSON.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.loaders.files.Lake.write_silver" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">write_silver</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">partition</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span></code>
+
+<a href="#f1.loaders.files.Lake.write_silver" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Grava a partição silver em Parquet, sobrescrevendo-a.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.loaders.files.Lake.write_quarantine" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">write_quarantine</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">partition</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span></code>
+
+<a href="#f1.loaders.files.Lake.write_quarantine" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Grava os rejeitados da partição; sem rejeitados, remove a quarentena anterior.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="pathlib.Path">Path</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>O arquivo gravado, ou <code>None</code> se não houver rejeitados.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.loaders.files.Lake.bronze_partitions" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">bronze_partitions</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">session_key</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#f1.loaders.files.Lake.bronze_partitions" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Partições bronze existentes de um endpoint, filtradas por ano ou sessão.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="f1.repositories.catalog" class="doc doc-heading">
+            <code>f1.repositories.catalog</code>
+
+
+<a href="#f1.repositories.catalog" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Catálogo DuckDB: manifesto de execuções, views <code>silver_*</code> e tabelas <code>gold_*</code>.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.repositories.catalog.ManifestEntry" class="doc doc-heading">
+            <code>ManifestEntry</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#f1.repositories.catalog.ManifestEntry" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Uma linha do manifesto: o resultado de uma partição numa camada.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.repositories.catalog.Catalog" class="doc doc-heading">
+            <code>Catalog</code>
+
+
+<a href="#f1.repositories.catalog.Catalog" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Acesso ao arquivo DuckDB do projeto.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>connection</code>
+            </td>
+            <td>
+                  <code><span title="duckdb.DuckDBPyConnection">DuckDBPyConnection</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Conexão aberta (arquivo ou <code>:memory:</code>), gerida por quem chama.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.repositories.catalog.Catalog.record" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">record</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span></code>
+
+<a href="#f1.repositories.catalog.Catalog.record" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Acrescenta uma linha ao manifesto <code>meta.ingestion_runs</code>.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.repositories.catalog.Catalog.completed_endpoints" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">completed_endpoints</span><span class="p">(</span><span class="n">year</span><span class="p">)</span></code>
+
+<a href="#f1.repositories.catalog.Catalog.completed_endpoints" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Endpoints cuja última ingestão no bronze teve sucesso em todas as partições.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="dict">dict</span>[<span title="int">int</span>, <span title="set">set</span>[<span title="str">str</span>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p><code>{session_key: {endpoint, ...}}</code> das sessões do ano.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.repositories.catalog.Catalog.refresh_silver_view" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">refresh_silver_view</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">parquet_glob</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span></code>
+
+<a href="#f1.repositories.catalog.Catalog.refresh_silver_view" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Recria <code>silver_{endpoint}</code> sobre os Parquet do lake.</p>
+<p>Sem partições, cria uma tabela vazia com o schema da silver, para que os marts
+continuem consultáveis.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>endpoint</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Nome do endpoint.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>parquet_glob</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Padrão dos arquivos silver, ou <code>None</code> se não houver arquivos.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>schema</code>
+            </td>
+            <td>
+                  <code><span title="polars.Schema">Schema</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Schema silver usado quando não há arquivos.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.repositories.catalog.Catalog.build_table" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">build_table</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">select_sql</span><span class="p">)</span></code>
+
+<a href="#f1.repositories.catalog.Catalog.build_table" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Materializa <code>select_sql</code> na tabela <code>name</code> (overwrite) e devolve as linhas.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="LoadError (f1.exceptions.LoadError)" href="#f1.exceptions.LoadError">LoadError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se o SQL falhar.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="dashboard">Dashboard<a class="headerlink" href="#dashboard" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="f1.repositories.marts" class="doc doc-heading">
+            <code>f1.repositories.marts</code>
+
+
+<a href="#f1.repositories.marts" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Leitura dos marts <code>gold_*</code> para consumo (dashboard).</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.repositories.marts.MartsReader" class="doc doc-heading">
+            <code>MartsReader</code>
+
+
+<a href="#f1.repositories.marts.MartsReader" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Consultas parametrizadas sobre os marts.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>connection</code>
+            </td>
+            <td>
+                  <code><span title="duckdb.DuckDBPyConnection">DuckDBPyConnection</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Conexão DuckDB (em geral <code>read_only</code>), gerida por quem chama.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.repositories.marts.MartsReader.is_ready" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">is_ready</span><span class="p">()</span></code>
+
+<a href="#f1.repositories.marts.MartsReader.is_ready" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Se os marts exigidos pelo dashboard existem (<code>f1 marts build</code> já rodou).</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.repositories.marts.MartsReader.races" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">races</span><span class="p">()</span></code>
+
+<a href="#f1.repositories.marts.MartsReader.races" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Corridas e sprints com resultado, da mais recente para a mais antiga.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.repositories.marts.MartsReader.race_results" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">race_results</span><span class="p">(</span><span class="n">session_key</span><span class="p">)</span></code>
+
+<a href="#f1.repositories.marts.MartsReader.race_results" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Resultado de uma corrida, na ordem de chegada.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.repositories.marts.MartsReader.clean_laps" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">clean_laps</span><span class="p">(</span><span class="n">session_key</span><span class="p">,</span> <span class="n">drivers</span><span class="p">,</span> <span class="n">max_ratio</span><span class="o">=</span><span class="mf">1.07</span><span class="p">)</span></code>
+
+<a href="#f1.repositories.marts.MartsReader.clean_laps" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Voltas limpas dos pilotos pedidos (por sigla).</p>
+<p>Exclui pit, volta 1 e voltas acima de <code>max_ratio</code> vezes a mediana da sessão
+(safety car, bandeira vermelha), que achatariam a comparação de ritmo.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.repositories.marts.MartsReader.stints" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">stints</span><span class="p">(</span><span class="n">session_key</span><span class="p">)</span></code>
+
+<a href="#f1.repositories.marts.MartsReader.stints" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Stints da sessão, ordenados pela posição final do piloto.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.repositories.marts.MartsReader.pit_stops_by_team" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">pit_stops_by_team</span><span class="p">(</span><span class="n">year</span><span class="p">)</span></code>
+
+<a href="#f1.repositories.marts.MartsReader.pit_stops_by_team" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Mediana do tempo no pit lane e parado, por equipe, na temporada.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.repositories.marts.MartsReader.fastest_stops" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">fastest_stops</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span></code>
+
+<a href="#f1.repositories.marts.MartsReader.fastest_stops" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Paradas mais rápidas (tempo parado) da temporada.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.repositories.marts.MartsReader.championship" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">championship</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">championship</span><span class="p">)</span></code>
+
+<a href="#f1.repositories.marts.MartsReader.championship" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Pontos e posição após cada corrida (<code>championship</code>: <code>driver</code> ou <code>team</code>).</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="f1.dashboard.charts" class="doc doc-heading">
+            <code>f1.dashboard.charts</code>
+
+
+<a href="#f1.dashboard.charts" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Gráficos Altair do dashboard: funções puras de DataFrame para gráfico.</p>
+<p>As cores seguem a paleta de referência de visualização, validada em ambos os modos:
+categórica em ordem fixa (no máximo três séries), divergente azul ↔ vermelho com cinza
+neutro, e compostos de pneu com codificação secundária (letra na barra).</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="f1.dashboard.charts.MAX_SERIES" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">MAX_SERIES</span> <span class="o">=</span> <span class="mi">3</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+<a href="#f1.dashboard.charts.MAX_SERIES" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Séries com cor própria por gráfico: as três primeiras cores validam todos os pares.</p>
+
+    </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.dashboard.charts.Palette" class="doc doc-heading">
+            <code>Palette</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#f1.dashboard.charts.Palette" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Cores de um modo (claro ou escuro).</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="f1.dashboard.charts.Palette.dark_ink_on" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">dark_ink_on</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+<a href="#f1.dashboard.charts.Palette.dark_ink_on" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Compostos cuja letra usa tinta escura (fundo claro, como o amarelo).</p>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="f1.dashboard.charts.assign_slots" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">assign_slots</span><span class="p">(</span><span class="n">previous</span><span class="p">,</span> <span class="n">selected</span><span class="p">)</span></code>
+
+<a href="#f1.dashboard.charts.assign_slots" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Atribui a cada entidade selecionada um slot de cor estável.</p>
+<p>Quem já estava selecionado mantém o slot (a cor segue a entidade, não a posição na
+lista); quem entra recebe o menor slot livre.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>previous</code>
+            </td>
+            <td>
+                  <code><span title="collections.abc.Mapping">Mapping</span>[<span title="str">str</span>, <span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Atribuição anterior, <code>{entidade: slot}</code>.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>selected</code>
+            </td>
+            <td>
+                  <code><span title="collections.abc.Sequence">Sequence</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Entidades selecionadas agora (no máximo <code>MAX_SERIES</code>).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="ValueError">ValueError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se houver mais entidades que slots.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="f1.dashboard.charts.positions_gained_chart" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">positions_gained_chart</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">palette</span><span class="p">)</span></code>
+
+<a href="#f1.dashboard.charts.positions_gained_chart" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Barras divergentes de posições ganhas (grid → chegada), na ordem de chegada.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="f1.dashboard.charts.stint_chart" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">stint_chart</span><span class="p">(</span><span class="n">stints</span><span class="p">,</span> <span class="n">palette</span><span class="p">)</span></code>
+
+<a href="#f1.dashboard.charts.stint_chart" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Linha do tempo de pneus: um segmento por stint, colorido e rotulado pelo composto.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="f1.dashboard.charts.lap_pace_chart" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">lap_pace_chart</span><span class="p">(</span><span class="n">laps</span><span class="p">,</span> <span class="n">slots</span><span class="p">,</span> <span class="n">palette</span><span class="p">)</span></code>
+
+<a href="#f1.dashboard.charts.lap_pace_chart" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Tempo de volta por volta, uma linha por piloto, com crosshair e tooltip.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="f1.dashboard.charts.team_bar_chart" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">team_bar_chart</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">palette</span><span class="p">)</span></code>
+
+<a href="#f1.dashboard.charts.team_bar_chart" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Barras horizontais de uma medida por equipe (uma série, uma cor), menor primeiro.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="f1.dashboard.charts.championship_chart" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">championship_chart</span><span class="p">(</span><span class="n">progression</span><span class="p">,</span> <span class="n">slots</span><span class="p">,</span> <span class="n">palette</span><span class="p">)</span></code>
+
+<a href="#f1.dashboard.charts.championship_chart" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Pontos acumulados por corrida: destacados em cor, demais em cinza (ênfase).</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="pipelines">Pipelines<a class="headerlink" href="#pipelines" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="f1.pipelines.ingest" class="doc doc-heading">
+            <code>f1.pipelines.ingest</code>
+
+
+<a href="#f1.pipelines.ingest" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Pipeline de ingestão: OpenF1 API → bronze (JSON bruto comprimido).</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.pipelines.ingest.IngestResult" class="doc doc-heading">
+            <code>IngestResult</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#f1.pipelines.ingest.IngestResult" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Totais de uma execução de ingestão.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.pipelines.ingest.IngestPipeline" class="doc doc-heading">
+            <code>IngestPipeline</code>
+
+
+<a href="#f1.pipelines.ingest.IngestPipeline" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Extrai partições da API e grava no bronze, registrando cada uma no manifesto.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>extractor</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="OpenF1Extractor (f1.extractors.openf1.OpenF1Extractor)" href="#f1.extractors.openf1.OpenF1Extractor">OpenF1Extractor</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Fonte dos registros.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>lake</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Lake (f1.loaders.files.Lake)" href="#f1.loaders.files.Lake">Lake</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Destino dos arquivos bronze.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>catalog</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Catalog (f1.repositories.catalog.Catalog)" href="#f1.repositories.catalog.Catalog">Catalog</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Manifesto das execuções.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>run_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Identificador da execução.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>clock</code>
+            </td>
+            <td>
+                  <code><span title="collections.abc.Callable">Callable</span>[[], <span title="datetime.datetime">datetime</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Relógio UTC (timezone-aware), injetado para testes.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>telemetry_session_types</code>
+            </td>
+            <td>
+                  <code><span title="frozenset">frozenset</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Tipos de sessão com <code>car_data</code>/<code>location</code>.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.pipelines.ingest.IngestPipeline.ingest_calendar" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">ingest_calendar</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">result</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#f1.pipelines.ingest.IngestPipeline.ingest_calendar" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Ingere <code>meetings</code> e <code>sessions</code> do ano e devolve as sessões.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ExtractionError (f1.exceptions.ExtractionError)" href="#f1.exceptions.ExtractionError">ExtractionError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se o calendário não puder ser obtido (sem ele não há o que ingerir).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.pipelines.ingest.IngestPipeline.ingest_session_key" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">ingest_session_key</span><span class="p">(</span><span class="n">session_key</span><span class="p">,</span> <span class="n">endpoints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">with_telemetry</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#f1.pipelines.ingest.IngestPipeline.ingest_session_key" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Ingere uma sessão pelo <code>session_key</code> (busca os metadados na API).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>session_key</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Sessão a ingerir.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>endpoints</code>
+            </td>
+            <td>
+                  <code><span title="collections.abc.Sequence">Sequence</span>[<a class="autorefs autorefs-internal" title="EndpointSpec
+
+
+  
+      dataclass
+   (f1.schemas.endpoints.EndpointSpec)" href="#f1.schemas.endpoints.EndpointSpec">EndpointSpec</a>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Restringe os endpoints; <code>None</code> usa todos os de sessão.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>with_telemetry</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Inclui <code>car_data</code> e <code>location</code> quando <code>endpoints</code> é <code>None</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ExtractionError (f1.exceptions.ExtractionError)" href="#f1.exceptions.ExtractionError">ExtractionError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se alguma partição falhar (as demais são gravadas mesmo assim).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.pipelines.ingest.IngestPipeline.ingest_year" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">ingest_year</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">with_telemetry</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#f1.pipelines.ingest.IngestPipeline.ingest_year" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Backfill incremental do ano: calendário e sessões encerradas ainda não ingeridas.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>year</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Temporada.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>with_telemetry</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Inclui <code>car_data</code> e <code>location</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>force</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Reingere sessões já completas no manifesto.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ExtractionError (f1.exceptions.ExtractionError)" href="#f1.exceptions.ExtractionError">ExtractionError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se alguma partição falhar.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="f1.pipelines.ingest.plan_endpoints" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">plan_endpoints</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">candidates</span><span class="p">,</span> <span class="n">telemetry_session_types</span><span class="p">)</span></code>
+
+<a href="#f1.pipelines.ingest.plan_endpoints" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Filtra os endpoints aplicáveis a uma sessão.</p>
+<p>Endpoints <code>race_only</code> só valem para corridas; a telemetria só para os tipos de
+sessão configurados.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="f1.pipelines.refine" class="doc doc-heading">
+            <code>f1.pipelines.refine</code>
+
+
+<a href="#f1.pipelines.refine" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Pipeline de refino: bronze → silver (Parquet tipado) e quarentena.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.pipelines.refine.RefineResult" class="doc doc-heading">
+            <code>RefineResult</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#f1.pipelines.refine.RefineResult" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Totais de uma execução de refino.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.pipelines.refine.RefinePipeline" class="doc doc-heading">
+            <code>RefinePipeline</code>
+
+
+<a href="#f1.pipelines.refine.RefinePipeline" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Converte partições bronze em silver, isolando inválidos na quarentena.</p>
+<p>Uma falha de contrato afeta só a partição do endpoint: as demais seguem e a execução
+termina com erro no fim.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>lake</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Lake (f1.loaders.files.Lake)" href="#f1.loaders.files.Lake">Lake</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Origem (bronze) e destino (silver, quarentena).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>catalog</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Catalog (f1.repositories.catalog.Catalog)" href="#f1.repositories.catalog.Catalog">Catalog</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Manifesto das execuções.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>run_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Identificador da execução, gravado na quarentena.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>clock</code>
+            </td>
+            <td>
+                  <code><span title="collections.abc.Callable">Callable</span>[[], <span title="datetime.datetime">datetime</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Relógio UTC, injetado para testes.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.pipelines.refine.RefinePipeline.run" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">run</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">session_key</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#f1.pipelines.refine.RefinePipeline.run" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Refina as partições bronze de um ano ou de uma sessão.</p>
+<p>O calendário (<code>meetings</code> e <code>sessions</code>) do ano é sempre refinado junto, porque
+os marts dependem dele; com <code>session_key</code>, o ano vem das partições da sessão.</p>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ConfigurationError (f1.exceptions.ConfigurationError)" href="#f1.exceptions.ConfigurationError">ConfigurationError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se nenhum (ou ambos) os filtros forem informados.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="DataValidationError (f1.exceptions.DataValidationError)" href="#f1.exceptions.DataValidationError">DataValidationError</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se alguma partição falhar.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="f1.pipelines.marts" class="doc doc-heading">
+            <code>f1.pipelines.marts</code>
+
+
+<a href="#f1.pipelines.marts" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Pipeline de marts: views <code>silver_*</code> e tabelas <code>gold_*</code> no DuckDB.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="f1.pipelines.marts.GOLD_MARTS" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">GOLD_MARTS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'gold_lap_pace'</span><span class="p">,</span> <span class="s1">'gold_stint_summary'</span><span class="p">,</span> <span class="s1">'gold_pit_stops'</span><span class="p">,</span> <span class="s1">'gold_race_results'</span><span class="p">,</span> <span class="s1">'gold_championship_progression'</span><span class="p">,</span> <span class="s1">'gold_session_weather'</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+<a href="#f1.pipelines.marts.GOLD_MARTS" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Marts na ordem de construção. Cada um é <code>sql/gold/&lt;nome&gt;.sql</code>.</p>
+
+    </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.pipelines.marts.MartsPipeline" class="doc doc-heading">
+            <code>MartsPipeline</code>
+
+
+<a href="#f1.pipelines.marts.MartsPipeline" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Atualiza as views da silver e materializa os marts da gold.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>lake</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Lake (f1.loaders.files.Lake)" href="#f1.loaders.files.Lake">Lake</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Data lake com as partições silver.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>catalog</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Catalog (f1.repositories.catalog.Catalog)" href="#f1.repositories.catalog.Catalog">Catalog</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Catálogo DuckDB de destino.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="f1.pipelines.marts.MartsPipeline.build" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">build</span><span class="p">()</span></code>
+
+<a href="#f1.pipelines.marts.MartsPipeline.build" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Recria as views <code>silver_*</code> e reconstrói todos os marts (overwrite).</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Linhas de cada mart.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="LoadError">LoadError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Se algum SQL falhar.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="f1.pipelines.marts.load_mart_sql" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">load_mart_sql</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></code>
+
+<a href="#f1.pipelines.marts.load_mart_sql" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Lê o SQL versionado de um mart.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="excecoes">Exceções<a class="headerlink" href="#excecoes" title="Permanent link">&para;</a></h2>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="f1.exceptions" class="doc doc-heading">
+            <code>f1.exceptions</code>
+
+
+<a href="#f1.exceptions" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Hierarquia de exceções do projeto.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.exceptions.F1Error" class="doc doc-heading">
+            <code>F1Error</code>
+
+
+<a href="#f1.exceptions.F1Error" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="Exception">Exception</span></code></p>
+
+
+
+        <p>Base de todas as exceções do projeto.</p>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.exceptions.ConfigurationError" class="doc doc-heading">
+            <code>ConfigurationError</code>
+
+
+<a href="#f1.exceptions.ConfigurationError" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="F1Error (f1.exceptions.F1Error)" href="#f1.exceptions.F1Error">F1Error</a></code></p>
+
+
+
+        <p>Configuração ou parâmetro de execução ausente ou inválido.</p>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.exceptions.ExtractionError" class="doc doc-heading">
+            <code>ExtractionError</code>
+
+
+<a href="#f1.exceptions.ExtractionError" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="F1Error (f1.exceptions.F1Error)" href="#f1.exceptions.F1Error">F1Error</a></code></p>
+
+
+
+        <p>Falha ao ler da OpenF1 API.</p>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.exceptions.RateLimitError" class="doc doc-heading">
+            <code>RateLimitError</code>
+
+
+<a href="#f1.exceptions.RateLimitError" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="ExtractionError (f1.exceptions.ExtractionError)" href="#f1.exceptions.ExtractionError">ExtractionError</a></code></p>
+
+
+
+        <p>A API continuou respondendo 429 depois de esgotar as tentativas.</p>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.exceptions.DataValidationError" class="doc doc-heading">
+            <code>DataValidationError</code>
+
+
+<a href="#f1.exceptions.DataValidationError" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="F1Error (f1.exceptions.F1Error)" href="#f1.exceptions.F1Error">F1Error</a></code></p>
+
+
+
+        <p>Os dados violam o contrato esperado (schema, tipos ou chaves).</p>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="f1.exceptions.LoadError" class="doc doc-heading">
+            <code>LoadError</code>
+
+
+<a href="#f1.exceptions.LoadError" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="F1Error (f1.exceptions.F1Error)" href="#f1.exceptions.F1Error">F1Error</a></code></p>
+
+
+
+        <p>Falha ao gravar no data lake ou no catálogo.</p>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Voltar para o topo
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Rodapé" >
+        
+          
+          <a href="../adr/0001-lake-no-github-actions/" class="md-footer__link md-footer__link--prev" aria-label="Anterior: 0001: Persistência do lake na ingestão agendada">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                0001: Persistência do lake na ingestão agendada
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+    
+  </body>
+</html>
