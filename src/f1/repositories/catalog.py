@@ -49,6 +49,12 @@ GROUP BY session_key, endpoint
 HAVING bool_and(status = 'success')
 """
 
+_OBJECT_TYPE = """
+SELECT table_type
+FROM information_schema.tables
+WHERE table_schema = 'main' AND table_name = ?
+"""
+
 
 @dataclass(frozen=True, slots=True)
 class ManifestEntry:
@@ -120,8 +126,12 @@ class Catalog:
             schema: Schema silver usado quando não há arquivos.
         """
         name = _identifier(f"silver_{endpoint}")
-        self._conn.execute(f"DROP VIEW IF EXISTS {name}")
-        self._conn.execute(f"DROP TABLE IF EXISTS {name}")
+        # DROP VIEW IF EXISTS falha se o objeto for uma tabela (e vice-versa): o tipo
+        # muda quando o endpoint passa a ter (ou deixa de ter) partições.
+        existing = self._conn.execute(_OBJECT_TYPE, [name]).fetchone()
+        if existing is not None:
+            kind = "VIEW" if existing[0] == "VIEW" else "TABLE"
+            self._conn.execute(f"DROP {kind} {name}")
         if parquet_glob is not None:
             # DDL de view não aceita parâmetros; o caminho vem da configuração, não do usuário,
             # e é escapado como literal SQL.
