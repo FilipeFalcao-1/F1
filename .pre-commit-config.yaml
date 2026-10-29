@@ -1,0 +1,57 @@
+# Instalar os hooks uma vez por clone:
+#   poetry run pre-commit install --hook-type pre-commit --hook-type pre-push
+# Os hooks locais usam `poetry run`, então as versões de Ruff, mypy e pytest
+# são as do poetry.lock, as mesmas do CI.
+default_install_hook_types: [pre-commit, pre-push]
+default_stages: [pre-commit]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=500]
+      - id: detect-private-key
+
+  - repo: local
+    hooks:
+      - id: poetry-check
+        name: poetry check --lock
+        entry: poetry check --lock
+        language: system
+        files: ^(pyproject\.toml|poetry\.lock)$
+        pass_filenames: false
+
+      - id: ruff-check
+        name: ruff check
+        entry: poetry run ruff check --fix
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
+
+      - id: ruff-format
+        name: ruff format
+        entry: poetry run ruff format
+        language: system
+        types_or: [python, pyi]
+        require_serial: true
+
+      - id: mypy
+        name: mypy
+        entry: poetry run mypy
+        language: system
+        files: ^src/.*\.py$
+        pass_filenames: false
+
+      - id: pytest
+        name: pytest (cobertura mínima de 50%)
+        entry: poetry run pytest tests/ --cov=f1 --cov-fail-under=50 -q
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-push]

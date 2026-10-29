@@ -9,6 +9,20 @@ poetry install --all-extras   # inclui o extra dashboard, exigido pelos testes
 
 Dependências são gerenciadas só pelo Poetry (`poetry add`, `poetry add --group dev`). Nunca use `pip`.
 
+## Pre-commit
+
+```bash
+poetry run pre-commit install   # instala os hooks de pre-commit e pre-push (uma vez por clone)
+poetry run pre-commit run --all-files
+```
+
+| Momento | Hooks |
+|---|---|
+| `git commit` | Higiene de arquivos (espaços, fim de linha, YAML/TOML, conflitos, arquivos > 500 KB, chaves privadas), `poetry check --lock`, `ruff check --fix`, `ruff format` e `mypy` |
+| `git push` | `pytest` com cobertura mínima de 50% |
+
+Os hooks locais usam `poetry run`, então rodam as mesmas versões do `poetry.lock` usadas no CI. Quando o Ruff corrige um arquivo, o commit é interrompido: revise a correção, faça `git add` e commite de novo.
+
 ## Definition of Done
 
 ```bash
