@@ -55,6 +55,26 @@ def test_view_silver_vazia_vira_tabela_tipada(catalog: Catalog) -> None:
     assert catalog.build_table("gold_test", "SELECT lap + 1 AS next_lap FROM silver_laps") == 0
 
 
+def test_view_silver_pode_ser_recriada_ao_trocar_entre_tabela_e_view(
+    catalog: Catalog, lake: Lake
+) -> None:
+    # Regressão: o segundo `marts build` falhava com a tabela vazia criada no primeiro
+    schema = pl.Schema({"session_key": pl.Int64(), "lap": pl.Int64(), "year": pl.Int64()})
+    catalog.refresh_silver_view("laps", None, schema)
+    catalog.refresh_silver_view("laps", None, schema)
+    lake.write_silver(
+        "laps", Partition(2023, 9165), pl.DataFrame({"session_key": [9165], "lap": [1]})
+    )
+    catalog.refresh_silver_view("laps", lake.silver_glob("laps"), schema)
+    catalog.refresh_silver_view("laps", lake.silver_glob("laps"), schema)
+
+    assert catalog.build_table("gold_test", "SELECT lap FROM silver_laps") == 1
+
+    catalog.refresh_silver_view("laps", None, schema)
+
+    assert catalog.build_table("gold_test", "SELECT lap FROM silver_laps") == 0
+
+
 def test_build_table_com_sql_invalido_vira_load_error(catalog: Catalog) -> None:
     with pytest.raises(LoadError, match="gold_x"):
         catalog.build_table("gold_x", "SELECT * FROM tabela_inexistente")
