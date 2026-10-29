@@ -52,13 +52,13 @@ jobs:
       - name: Mypy
         run: poetry run mypy
 
-      - name: Testes e cobertura (mínimo 50%)
+      - name: Testes e cobertura (mínimo 85%)
         run: >-
           poetry run pytest tests/
           --cov=f1
           --cov-report=term-missing
           --cov-report=xml
-          --cov-fail-under=50
+          --cov-fail-under=85
 
       - name: Documentação
         run: poetry run mkdocs build --strict

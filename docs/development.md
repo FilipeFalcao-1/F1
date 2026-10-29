@@ -19,7 +19,7 @@ poetry run pre-commit run --all-files
 | Momento | Hooks |
 |---|---|
 | `git commit` | Higiene de arquivos (espaços, fim de linha, YAML/TOML, conflitos, arquivos > 500 KB, chaves privadas), `poetry check --lock`, `ruff check --fix`, `ruff format` e `mypy` |
-| `git push` | `pytest` com cobertura mínima de 50% |
+| `git push` | `pytest` com cobertura mínima de 85% |
 
 Os hooks locais usam `poetry run`, então rodam as mesmas versões do `poetry.lock` usadas no CI. Quando o Ruff corrige um arquivo, o commit é interrompido: revise a correção, faça `git add` e commite de novo.
 
@@ -29,7 +29,7 @@ Os hooks locais usam `poetry run`, então rodam as mesmas versões do `poetry.lo
 poetry check --lock
 poetry run ruff check . && poetry run ruff format --check .
 poetry run mypy
-poetry run pytest tests/ --cov=f1 --cov-report=term-missing --cov-fail-under=50
+poetry run pytest tests/ --cov=f1 --cov-report=term-missing --cov-fail-under=85
 poetry run task docs-build      # mkdocs build --strict
 ```
 

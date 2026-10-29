@@ -21,7 +21,7 @@
 - [ ] Dependências gerenciadas só pelo Poetry; `poetry check --lock` passa; o lock foi atualizado se houve mudança.
 - [ ] `poetry run ruff check .` sem erros (imports organizados).
 - [ ] `poetry run ruff format --check .` sem alterações pendentes.
-- [ ] `poetry run pytest --cov=f1 --cov-fail-under=50` passa.
+- [ ] `poetry run pytest --cov=f1 --cov-fail-under=85` passa.
 - [ ] Testes criados ou atualizados para o comportamento alterado (inclui casos de erro e borda).
 - [ ] Interfaces públicas tipadas; `poetry run mypy` passa (se configurado).
 - [ ] Documentação afetada atualizada; `poetry run mkdocs build --strict` passa.
