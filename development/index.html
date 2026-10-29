@@ -495,6 +495,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#pre-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-commit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#definition-of-done" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -737,6 +748,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#pre-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-commit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#definition-of-done" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -845,12 +867,35 @@
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>poetry<span class="w"> </span>install<span class="w"> </span>--all-extras<span class="w">   </span><span class="c1"># inclui o extra dashboard, exigido pelos testes</span>
 </code></pre></div>
 <p>Dependências são gerenciadas só pelo Poetry (<code>poetry add</code>, <code>poetry add --group dev</code>). Nunca use <code>pip</code>.</p>
+<h2 id="pre-commit">Pre-commit<a class="headerlink" href="#pre-commit" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>poetry<span class="w"> </span>run<span class="w"> </span>pre-commit<span class="w"> </span>install<span class="w">   </span><span class="c1"># instala os hooks de pre-commit e pre-push (uma vez por clone)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>poetry<span class="w"> </span>run<span class="w"> </span>pre-commit<span class="w"> </span>run<span class="w"> </span>--all-files
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Momento</th>
+<th>Hooks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git commit</code></td>
+<td>Higiene de arquivos (espaços, fim de linha, YAML/TOML, conflitos, arquivos &gt; 500 KB, chaves privadas), <code>poetry check --lock</code>, <code>ruff check --fix</code>, <code>ruff format</code> e <code>mypy</code></td>
+</tr>
+<tr>
+<td><code>git push</code></td>
+<td><code>pytest</code> com cobertura mínima de 50%</td>
+</tr>
+</tbody>
+</table>
+<p>Os hooks locais usam <code>poetry run</code>, então rodam as mesmas versões do <code>poetry.lock</code> usadas no CI. Quando o Ruff corrige um arquivo, o commit é interrompido: revise a correção, faça <code>git add</code> e commite de novo.</p>
 <h2 id="definition-of-done">Definition of Done<a class="headerlink" href="#definition-of-done" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>poetry<span class="w"> </span>check<span class="w"> </span>--lock
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>poetry<span class="w"> </span>run<span class="w"> </span>ruff<span class="w"> </span>check<span class="w"> </span>.<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>ruff<span class="w"> </span>format<span class="w"> </span>--check<span class="w"> </span>.
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>poetry<span class="w"> </span>run<span class="w"> </span>mypy
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>poetry<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>--cov<span class="o">=</span>f1<span class="w"> </span>--cov-report<span class="o">=</span>term-missing<span class="w"> </span>--cov-fail-under<span class="o">=</span><span class="m">50</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>poetry<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>docs-build<span class="w">      </span><span class="c1"># mkdocs build --strict</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>poetry<span class="w"> </span>check<span class="w"> </span>--lock
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>poetry<span class="w"> </span>run<span class="w"> </span>ruff<span class="w"> </span>check<span class="w"> </span>.<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>poetry<span class="w"> </span>run<span class="w"> </span>ruff<span class="w"> </span>format<span class="w"> </span>--check<span class="w"> </span>.
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>poetry<span class="w"> </span>run<span class="w"> </span>mypy
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>poetry<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>--cov<span class="o">=</span>f1<span class="w"> </span>--cov-report<span class="o">=</span>term-missing<span class="w"> </span>--cov-fail-under<span class="o">=</span><span class="m">50</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>poetry<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>docs-build<span class="w">      </span><span class="c1"># mkdocs build --strict</span>
 </code></pre></div>
 <p>O CI (<code>.github/workflows/ci.yml</code>) roda essa sequência e também o <code>pip-audit</code>.</p>
 <h2 id="testes">Testes<a class="headerlink" href="#testes" title="Permanent link">&para;</a></h2>
@@ -880,9 +925,9 @@
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>poetry<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span><span class="s2">"not integration"</span><span class="w">   </span><span class="c1"># só unitários</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>poetry<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>integration<span class="w">         </span><span class="c1"># ponta a ponta</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>poetry<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>live<span class="w">                </span><span class="c1"># API real (manual)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>poetry<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span><span class="s2">"not integration"</span><span class="w">   </span><span class="c1"># só unitários</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>poetry<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>integration<span class="w">         </span><span class="c1"># ponta a ponta</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>poetry<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span>live<span class="w">                </span><span class="c1"># API real (manual)</span>
 </code></pre></div>
 <p>A API falsa (<code>FakeOpenF1</code>, em <code>tests/conftest.py</code>) filtra os registros de <code>tests/fixtures/openf1/*.json</code> pelos parâmetros da query e responde 404 <code>No results found.</code> quando nada casa, como a API real. As fixtures são amostras reais pequenas da corrida 9165 e da classificação 9161 (GP de Singapura 2023) para os pilotos 1, 4 e 55.</p>
 <h2 id="como-estender">Como estender<a class="headerlink" href="#como-estender" title="Permanent link">&para;</a></h2>
@@ -906,9 +951,9 @@
 </ul>
 <h2 id="documentacao">Documentação<a class="headerlink" href="#documentacao" title="Permanent link">&para;</a></h2>
 <p>A documentação usa MkDocs Material, com a referência da API gerada pelo <code>mkdocstrings</code> a partir das docstrings (Google Style). Os atalhos ficam em <code>[tool.taskipy.tasks]</code> no <code>pyproject.toml</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>poetry<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>docs<span class="w">         </span><span class="c1"># serve com hot reload em http://127.0.0.1:8000</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>poetry<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>docs-build<span class="w">   </span><span class="c1"># mkdocs build --strict (o mesmo que o CI roda)</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>poetry<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>--list<span class="w">       </span><span class="c1"># lista os atalhos disponíveis</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>poetry<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>docs<span class="w">         </span><span class="c1"># serve com hot reload em http://127.0.0.1:8000</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>poetry<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>docs-build<span class="w">   </span><span class="c1"># mkdocs build --strict (o mesmo que o CI roda)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>poetry<span class="w"> </span>run<span class="w"> </span>task<span class="w"> </span>--list<span class="w">       </span><span class="c1"># lista os atalhos disponíveis</span>
 </code></pre></div>
 
 
