@@ -49,8 +49,8 @@ repos:
         pass_filenames: false
 
       - id: pytest
-        name: pytest (cobertura mínima de 50%)
-        entry: poetry run pytest tests/ --cov=f1 --cov-fail-under=50 -q
+        name: pytest (cobertura mínima de 85%)
+        entry: poetry run pytest tests/ --cov=f1 --cov-fail-under=85 -q
         language: system
         pass_filenames: false
         always_run: true

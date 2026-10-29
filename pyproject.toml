@@ -86,7 +86,7 @@ source = ["f1"]
 branch = true
 
 [tool.coverage.report]
-fail_under = 50  # piso obrigatório; só pode subir
+fail_under = 85  # piso obrigatório; só pode subir
 show_missing = true
 skip_empty = true
 exclude_also = [
