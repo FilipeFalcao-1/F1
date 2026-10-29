@@ -93,6 +93,24 @@ def test_session_result_da_corrida_mantem_duration_e_separa_volta() -> None:
     ]
 
 
+def test_session_result_posicao_em_texto_vai_para_position_code() -> None:
+    # Classificação de Singapura 2026 (session_key 11384): piloto sem tempo com "RT"
+    frame = refine(
+        "session_result",
+        [
+            result([92.4, 91.5, 91.4], [0.0, 0.0, 0.0]),
+            result([None, None, None], [None, None, None], position="RT"),
+            result([None, None, None], [None, None, None], position=None, dns=True),
+        ],
+    )
+
+    assert frame.select("position", "position_code").rows() == [
+        (1, None),
+        (None, "RT"),
+        (None, None),
+    ]
+
+
 def test_datas_viram_utc_com_e_sem_fracao_de_segundo() -> None:
     frame = refine(
         "intervals",

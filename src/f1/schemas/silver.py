@@ -138,7 +138,7 @@ _RAW: dict[str, Schema] = {
     },
     "session_result": {
         **_SESSION_DRIVER,
-        "position": INT,
+        "position": JSON,
         "number_of_laps": INT,
         "points": FLOAT,
         "dnf": BOOL,
@@ -246,6 +246,7 @@ _SILVER: dict[str, Schema] = {
         {
             "driver_number": I32,
             "position": I32,
+            "position_code": STR,
             "number_of_laps": I32,
             "duration": FLOAT,
             "duration_q1": FLOAT,
