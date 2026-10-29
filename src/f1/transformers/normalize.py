@@ -80,7 +80,12 @@ def _intervals(frame: pl.DataFrame) -> pl.DataFrame:
 
 
 def _session_result(frame: pl.DataFrame) -> pl.DataFrame:
-    """Na classificação, ``duration`` e ``gap_to_leader`` são arrays [Q1, Q2, Q3]."""
+    """Na classificação, ``duration`` e ``gap_to_leader`` são arrays [Q1, Q2, Q3].
+
+    ``position`` às vezes vem como código em texto (``"RT"``): a posição fica nula e o
+    código vai para ``position_code``.
+    """
+    position = pl.col("position").str.to_integer(strict=False)
 
     def scalar(column: str) -> pl.Expr:
         return pl.when(~pl.col(column).str.starts_with("[")).then(pl.col(column))
@@ -97,6 +102,8 @@ def _session_result(frame: pl.DataFrame) -> pl.DataFrame:
         ]
 
     return frame.with_columns(
+        position.alias("position"),
+        pl.when(position.is_null()).then(pl.col("position")).alias("position_code"),
         *parts("duration", "duration"),
         *parts("gap_to_leader", "gap"),
         *split_gap(scalar("gap_to_leader"), "gap_to_leader"),

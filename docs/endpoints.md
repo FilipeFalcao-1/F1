@@ -10,7 +10,7 @@ O registro `f1.schemas.endpoints.ENDPOINTS` descreve os 18 endpoints. Um extract
 | `laps` | sessão | `session_key, driver_number, lap_number` | `segments_sector_*` nulos em corridas |
 | `stints` | sessão | `session_key, driver_number, stint_number` | — |
 | `pit` | sessão | `session_key, driver_number, lap_number, date` | `stop_duration` só a partir do GP dos EUA de 2024; `pit_duration` deprecado |
-| `session_result` | sessão | `session_key, driver_number` | Arrays Q1–Q3 na classificação; gap pode ser `"+N LAP(S)"`; `points` ausente na classificação |
+| `session_result` | sessão | `session_key, driver_number` | Arrays Q1–Q3 na classificação; gap pode ser `"+N LAP(S)"`; `points` ausente na classificação; `position` pode vir como código em texto (`"RT"`), gravado em `position_code` com `position` nulo |
 | `starting_grid` | sessão | `session_key, driver_number` | Publicado na sessão de classificação |
 | `position` | sessão | `session_key, driver_number, date` | — |
 | `intervals` | sessão, só corridas | `session_key, driver_number, date` | Gaps podem ser `"+1 LAP"` |

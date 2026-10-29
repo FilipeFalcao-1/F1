@@ -55,7 +55,7 @@ Uma falha afeta só a partição do endpoint: as demais seguem, e a execução t
 
 | Endpoint | Regra |
 |---|---|
-| `session_result` | Na classificação, `duration` e `gap_to_leader` são arrays `[Q1, Q2, Q3]` → `duration_q1..q3` e `gap_q1..q3`. Fora dela, `duration` fica escalar e o gap vira `gap_to_leader_seconds` e `gap_to_leader_laps_behind` |
+| `session_result` | Na classificação, `duration` e `gap_to_leader` são arrays `[Q1, Q2, Q3]` → `duration_q1..q3` e `gap_q1..q3`. Fora dela, `duration` fica escalar e o gap vira `gap_to_leader_seconds` e `gap_to_leader_laps_behind`. `position` em texto (código como `"RT"`) vira `position` nulo e `position_code` com o código |
 | `intervals` | `interval` e `gap_to_leader` podem ser `"+1 LAP"` → `*_seconds` (nulo quando há volta de diferença) e `*_laps_behind` |
 | `laps` | `segments_sector_*` como `List(Int32)`. São nulos em corridas, o que é esperado |
 | `drivers`, `pit` | `country_code` e `pit_duration` (deprecados) são descartados |
